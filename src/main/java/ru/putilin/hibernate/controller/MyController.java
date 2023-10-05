@@ -24,15 +24,15 @@ public class MyController {
     }
 
     @GetMapping("/age")
-    public List<Persons> getPersonsByAge(@RequestParam("age") int age ) {
+    public List<Persons> getPersonsByAge(@RequestParam("age") int age) {
         return myRepository.getPersonsByAge(age);
     }
 
     @GetMapping("/name")
-    public Persons getPersonsByNameAndSurname(@RequestParam("name") String name,
+    public Optional<Persons> getPersonsByNameAndSurname(@RequestParam("name") String name,
                                                         @RequestParam("surname") String surname) {
-        return myRepository.getPersonsByNameAndSurname(name, surname).
-                orElseThrow();
+        return Optional.of(myRepository.getPersonsByNameAndSurname(name, surname).
+                orElseThrow());
     }
 
 }

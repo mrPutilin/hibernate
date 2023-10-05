@@ -18,13 +18,14 @@ public class MyRepository {
         this.personsRepository = personsRepository;
     }
 
+
     public List<Persons> getPersonByCity(String city) {
 
-        return personsRepository.findByCityIgnoreCase(city);
+        return personsRepository.findPersonsByCity(city);
     }
 
     public List<Persons> getPersonsByAge(int age) {
-       return personsRepository.findByPerson_AgeLessThan(age, Sort.by("person.age"));
+        return personsRepository.findByPerson_AgeLessThan(age, Sort.by("person.age"));
 
     }
 
@@ -32,7 +33,6 @@ public class MyRepository {
         return personsRepository.findByPerson_NameAndPerson_Surname(name, surname);
 
     }
-
 
 
 }
