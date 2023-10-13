@@ -22,4 +22,7 @@ public interface PersonsRepository extends JpaRepository<Persons, Person> {
       @Query("select a from Persons a where a.person.name ilike ?1 and a.person.surname ilike ?2")
       Optional<Persons> findByPerson_NameAndPerson_Surname(String name, String surname);
 
+      @Query("select a from Persons a where a.person.name ilike ?1")
+      Persons findPersonsByPerson_Name(String name);
+
 }

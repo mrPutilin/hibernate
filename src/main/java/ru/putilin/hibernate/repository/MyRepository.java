@@ -34,5 +34,9 @@ public class MyRepository {
 
     }
 
+    public Persons getPersonsByName(String name) {
+        return personsRepository.findPersonsByPerson_Name(name);
+    }
+
 
 }

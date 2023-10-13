@@ -3,6 +3,8 @@ package ru.putilin.hibernate.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -13,7 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
 
@@ -26,29 +28,20 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("Evgeniy")
+        manager.createUser(User.withUsername("John")
                 .password(encoder().encode("qwert"))
                 .roles("ADMIN")
                 .build());
-        manager.createUser(User.withUsername("user")
+        manager.createUser(User.withUsername("Sara")
                 .password(encoder().encode("asdf"))
                 .roles("USER")
                 .build());
-        manager.createUser(User.withUsername("Sergey")
+        manager.createUser(User.withUsername("Bob")
                 .password(encoder().encode("zxcv"))
-                .roles("USER")
+                .roles("VIEWER")
                 .build());
         return manager;
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests((req) -> req.requestMatchers("/persons/by-city/city").permitAll()
-                        .requestMatchers("/persons/by-city/age").hasRole("USER")
-                        .requestMatchers("/persons/by-city/name").hasAnyRole("ADMIN", "USER")
-                        .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults());
-        return httpSecurity.build();
-    }
 
 }
