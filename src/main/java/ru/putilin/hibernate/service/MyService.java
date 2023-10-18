@@ -1,26 +1,26 @@
-package ru.putilin.hibernate.repository;
+package ru.putilin.hibernate.service;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import ru.putilin.hibernate.dao.PersonsRepository;
 import ru.putilin.hibernate.entity.Persons;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MyRepository {
+public class MyService {
 
 
     private final PersonsRepository personsRepository;
 
 
-    public MyRepository(PersonsRepository personsRepository) {
+    public MyService(PersonsRepository personsRepository) {
         this.personsRepository = personsRepository;
     }
 
 
     public List<Persons> getPersonByCity(String city) {
-
         return personsRepository.findPersonsByCity(city);
     }
 

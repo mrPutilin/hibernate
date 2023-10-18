@@ -2,7 +2,7 @@ package ru.putilin.hibernate.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.putilin.hibernate.entity.Persons;
-import ru.putilin.hibernate.repository.MyRepository;
+import ru.putilin.hibernate.service.MyService;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,27 +11,27 @@ import java.util.Optional;
 @RestController
 public class MyController {
 
-    private final MyRepository myRepository;
+    private final MyService myService;
 
-    public MyController(MyRepository myRepository) {
-        this.myRepository = myRepository;
+    public MyController(MyService myService) {
+        this.myService = myService;
     }
 
 
     @GetMapping()
     public List<Persons> getPersonByCity(@RequestParam("city") String city) {
-        return myRepository.getPersonByCity(city);
+        return myService.getPersonByCity(city);
     }
 
     @GetMapping("/age")
     public List<Persons> getPersonsByAge(@RequestParam("age") int age) {
-        return myRepository.getPersonsByAge(age);
+        return myService.getPersonsByAge(age);
     }
 
     @GetMapping("/name")
     public Optional<Persons> getPersonsByNameAndSurname(@RequestParam("name") String name,
                                                         @RequestParam("surname") String surname) {
-        return Optional.of(myRepository.getPersonsByNameAndSurname(name, surname).
+        return Optional.of(myService.getPersonsByNameAndSurname(name, surname).
                 orElseThrow());
     }
 

@@ -1,4 +1,4 @@
-package ru.putilin.hibernate.repository;
+package ru.putilin.hibernate.dao;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
